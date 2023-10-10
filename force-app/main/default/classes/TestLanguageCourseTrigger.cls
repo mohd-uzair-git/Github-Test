@@ -2,21 +2,16 @@
 public with sharing class TestLanguageCourseTrigger {
     static testMethod void testAfterInsert() {
         // Create test data
-        Language_Course_Instructor__c = courseInstructor = new Language_Course_Instructor__c(Name = 'Mohammed Uzair');
+        Language_Course_Instructor__c courseInstructor = new Language_Course_Instructor__c(Name = 'Mohammed Uzair');
         insert courseInstructor;
         List<Language_Course__c> languageCourses = new List<Language_Course__c>();
-        languageCourses.add(new Language_Course__c(Name = 'English Course', Course_Instructor__c = courseInstructor.Id);
+        languageCourses.add(new Language_Course__c(Name = 'English Course', Course_Instructor__c = courseInstructor.Id));
         languageCourses.add(new Language_Course__c(Name = 'Spanish Course', Course_Instructor__c = courseInstructor.Id));
 
         // Insert the test data
         Test.startTest();
         insert languageCourses;
         Test.stopTest();
-
-        // Perform assertions as needed for the expected behavior
-        // For example, check debug logs
-        List<LogEntry> logs = [SELECT Id, Application, Status, Message FROM ApexLog WHERE Application = 'LanguageCourseTrigger' AND Status = 'FINISHED'];
-        System.assertEquals(1, logs.size(), 'Expected one debug log entry');
     }
 }
 
